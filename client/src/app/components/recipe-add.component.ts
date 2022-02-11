@@ -21,7 +21,7 @@ export class RecipeAddComponent implements OnInit {
   createForm(): FormGroup{
     return this.fb.group({
       title: this.fb.control('', [Validators.required, Validators.minLength(3)]),
-      image: this.fb.control('', ),
+      image: this.fb.control('', [Validators.required] ),
       instruction: this.fb.control('', [Validators.required, Validators.minLength(3)]),
       ingredients: this.fb.array([
           new FormControl('',[Validators.required, Validators.minLength(3)]),
