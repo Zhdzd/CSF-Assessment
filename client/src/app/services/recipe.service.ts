@@ -18,8 +18,13 @@ export class RecipeService {
         return this.http.get<RecipeSummary[]>("http://localhost:8080/api/recipes")
     }
 
-    getRecipe(recipeId: string): Observable<Recipe[]>{
-          return this.http.get<Recipe[]>(`http://localhost:8080/api/recipes/${recipeId}`)
-    }
+    // getRecipe(recipeId: string): Observable<Recipe>{
+    //       return this.http.get<Recipe>(`http://localhost:8080/api/recipes/${recipeId}`)
+    // }
+    getRecipe(recipeId: string): Promise<Recipe>{
+      return lastValueFrom(
+        this.http.get<Recipe>(`http://localhost:8080/api/recipe/${recipeId}`)
+      )
+}
 
 }

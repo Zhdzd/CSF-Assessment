@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Recipe } from '../models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Recipe, RecipeSummary } from '../models';
 import { RecipeService } from '../services/recipe.service';
 
 @Component({
@@ -10,16 +10,27 @@ import { RecipeService } from '../services/recipe.service';
 })
 export class RecipeDetailComponent implements OnInit {
 
-  recipe: Recipe[] = [];
-  recipeId: string;
+  recipe!: Recipe;
+  recipeId!: string;
 
-  constructor(private recipeSvc: RecipeService, private router: Router) { }
+  constructor(private recipeSvc: RecipeService, private router: Router,
+    private activatedRoute: ActivatedRoute) {
+
+   }
 
   ngOnInit(): void {
-      this.recipeSvc.getRecipe(recipeId).subscribe((recipe)=>(this.recipe = recipe))l
+  this.recipeId = this.activatedRoute.snapshot.params['recipeId'];
+    console.info('>>>recipe id is:', this.recipeId)
+
+    // this.recipeSvc.getRecipe(this.recipeId).subscribe((recipe)=>(this.recipe = recipe));
+    this.recipeSvc.getRecipe(this.recipeId)
+        .then((r) =>{
+          this.recipe = r as Recipe;
+          console.log(this.recipe)
+          console.info('>>>Promise:', r);
+        })
   }
 
 
-  //this.recipeService.getAllRecipes().subscribe((recipeSummary)=>
-  //(this.recipeSummary = recipeSummary));
+
 }
