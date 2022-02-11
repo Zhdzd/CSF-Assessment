@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RECIPE } from '../mock.recipe';
+import { Router } from '@angular/router';
+
 import { RecipeSummary } from '../models';
 import { RecipeService } from '../services/recipe.service';
 
@@ -9,16 +10,17 @@ import { RecipeService } from '../services/recipe.service';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
-  recipes = RECIPE;
-  //recipeSummary: RecipeSummary [] = [];
+  //recipes = RECIPE;
+  recipeSummary: RecipeSummary[] = [];
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, private router: Router) { }
 
   ngOnInit(): void {
+    this.recipeService.getAllRecipes().subscribe((recipeSummary)=> (this.recipeSummary = recipeSummary));
   }
-  getRecipes(){
-    this.recipeService.getAllRecipes()
-        .subscribe(recipeSummary => this.recipes)
+
+  go(id: string){
+    this.router.navigate(['/recipe', id])
   }
 
 }

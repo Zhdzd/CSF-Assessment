@@ -1,8 +1,8 @@
 
 <H2>List of Recipes</H2>
 
-<div *ngFor="let r of recipes" class="recipe-style">
-  {{r.name}}
+<div *ngFor="let r of recipeSummary" class="recipe-style" [routerLink]="['/','recipe', r.id]">
+  {{r.title}}
 </div>
 
   <button>Add</button>
