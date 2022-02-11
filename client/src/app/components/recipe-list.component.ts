@@ -19,8 +19,5 @@ export class RecipeListComponent implements OnInit {
     this.recipeService.getAllRecipes().subscribe((recipeSummary)=> (this.recipeSummary = recipeSummary));
   }
 
-  go(id: string){
-    this.router.navigate(['/recipe', id])
-  }
 
 }
