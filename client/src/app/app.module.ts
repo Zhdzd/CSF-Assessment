@@ -6,7 +6,8 @@ import { RecipeListComponent } from './components/recipe-list.component';
 import { RecipeDetailComponent } from './components/recipe-detail.component';
 import { RecipeAddComponent } from './components/recipe-add.component';
 import { RouterModule, Routes } from '@angular/router';
-import { RecipeService } from './recipe.service';
+import { RecipeService } from './services/recipe.service';
+import { HttpClientModule } from "@angular/common/http";
 
 const appRoutes : Routes = [
   { path: '', component:RecipeListComponent },
@@ -22,7 +23,7 @@ const appRoutes : Routes = [
     RecipeAddComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ RecipeService],
