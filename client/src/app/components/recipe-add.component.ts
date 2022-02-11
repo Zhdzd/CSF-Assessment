@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Recipe } from '../models';
 import { RecipeService } from '../services/recipe.service';
 
@@ -12,7 +13,8 @@ export class RecipeAddComponent implements OnInit {
 
   form!: FormGroup
 
-  constructor(private fb: FormBuilder, private recipeSvc: RecipeService) { }
+  constructor(private fb: FormBuilder, private recipeSvc: RecipeService,
+    private router: Router) { }
 
   ngOnInit(): void {
       this.form = this.createForm();
@@ -62,7 +64,10 @@ export class RecipeAddComponent implements OnInit {
       image: this.form.value.image
     }
     console.log(recipe)
-    this.recipeSvc.saveRecipe(recipe);
+    this.recipeSvc.saveRecipe(recipe).then(() => {
+      this.router.navigate(['/']);
+
+    });
 
   }
 

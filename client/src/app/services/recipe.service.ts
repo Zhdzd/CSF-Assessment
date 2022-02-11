@@ -23,16 +23,21 @@ export class RecipeService {
         this.http.get<Recipe>(`http://localhost:8080/api/recipe/${recipeId}`)
       )
     }
-    saveRecipe(recipe: Recipe): Observable<any>{
-      const httpHeaders = new HttpHeaders()
-        .set('content-type', 'application/json')
-        .set('Accept', 'application/json');
-        return this.http.post(
-          'http://localhost:8080/api/recipe',
-          JSON.stringify(recipe),
-          {
-            headers: httpHeaders,
-          }
+    saveRecipe(recipe: Recipe): Promise<any>{
+        console.info('>>>recipe', recipe);
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-type': 'application/json',
+            Accept: 'application/json',
+          })
+        };
+
+        return lastValueFrom(
+          this.http.post(
+            'http://localhosst:8080/api/recipe',
+            recipe,
+            httpOptions
+          )
         )
     }
 
