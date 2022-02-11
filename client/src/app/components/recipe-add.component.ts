@@ -62,6 +62,7 @@ export class RecipeAddComponent implements OnInit {
       image: this.form.value.image
     }
     console.log(recipe)
+    this.recipeSvc.saveRecipe(recipe);
 
   }
 

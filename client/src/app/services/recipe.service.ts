@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { lastValueFrom, Observable, of } from "rxjs";
 
@@ -18,13 +18,22 @@ export class RecipeService {
         return this.http.get<RecipeSummary[]>("http://localhost:8080/api/recipes")
     }
 
-    // getRecipe(recipeId: string): Observable<Recipe>{
-    //       return this.http.get<Recipe>(`http://localhost:8080/api/recipes/${recipeId}`)
-    // }
     getRecipe(recipeId: string): Promise<Recipe>{
       return lastValueFrom(
         this.http.get<Recipe>(`http://localhost:8080/api/recipe/${recipeId}`)
       )
-}
+    }
+    saveRecipe(recipe: Recipe): Observable<any>{
+      const httpHeaders = new HttpHeaders()
+        .set('content-type', 'application/json')
+        .set('Accept', 'application/json');
+        return this.http.post(
+          'http://localhost:8080/api/recipe',
+          JSON.stringify(recipe),
+          {
+            headers: httpHeaders,
+          }
+        )
+    }
 
 }
