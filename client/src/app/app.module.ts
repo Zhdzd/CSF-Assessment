@@ -8,6 +8,7 @@ import { RecipeAddComponent } from './components/recipe-add.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RecipeService } from './services/recipe.service';
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes : Routes = [
   { path: '', component:RecipeListComponent },
@@ -24,7 +25,8 @@ const appRoutes : Routes = [
   ],
   imports: [
     BrowserModule, HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule, FormsModule
   ],
   providers: [ RecipeService],
   bootstrap: [AppComponent]

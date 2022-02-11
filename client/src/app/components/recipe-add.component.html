@@ -1,1 +1,27 @@
-<p>recipe-add works!</p>
+
+<form [formGroup]="form" (ngSubmit)="submitRecipe()">
+      <h2>Title</h2>
+      <Input
+        type="text"
+        size="40"
+        placeholder="Please input Recipe Name"
+        formControlName="title"
+      >
+
+      <h3>Ingredients</h3>
+      <div formArrayName="Ingredients">
+          <input type="text" size="40">
+      </div>
+      <h3>Instructions</h3>
+
+      <textarea name="" id="" cols="50" rows="10"></textarea>
+
+      <h3>Image</h3>
+      <input type="text">
+</form>
+
+
+<hr>
+<button>Add Recipe</button>
+
+<button [routerLink]="['/']">Back to Home Page</button>

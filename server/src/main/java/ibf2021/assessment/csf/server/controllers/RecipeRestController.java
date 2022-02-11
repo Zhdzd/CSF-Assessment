@@ -46,8 +46,8 @@ public class RecipeRestController{
             JsonObject jsonObject = Json.createObjectBuilder()
                 .add("title", rpe.getTitle())
                 .add("image", rpe.getImage())
-                .add("Ingredient", ingredientsJsonArray.toString())
-                .add("Instructions", rpe.getInstruction())
+                .add("ingredients", ingredientsJsonArray.toString())
+                .add("instruction", rpe.getInstruction())
                 .build();
 
             return ResponseEntity.status(HttpStatus.CREATED).body(jsonObject.toString());

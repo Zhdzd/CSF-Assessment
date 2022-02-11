@@ -7,7 +7,7 @@ export interface  RecipeSummary {
 export interface Recipe extends RecipeSummary{
 
   image: string;
-  Ingredient: string [];
-  Instructions: string;
+  ingredients: string [];
+  instruction: string;
 }
 
