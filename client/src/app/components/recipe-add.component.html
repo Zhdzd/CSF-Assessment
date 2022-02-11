@@ -1,5 +1,5 @@
 
-<form [formGroup]="form" (ngSubmit)="submitRecipe()">
+<form [formGroup]="form" >
       <h2>Title</h2>
       <Input
         type="text"
@@ -9,19 +9,42 @@
       >
 
       <h3>Ingredients</h3>
+
       <div formArrayName="Ingredients">
-          <input type="text" size="40">
+        <button
+          type="button"
+          (click)="addIngredient()"
+          >
+          Add Ingredient
+        </button>
+        <div
+        *ngFor="
+          let ing of returnFormArr(form, 'ingredients').controls;
+          let i = index">
+          <input class="form-control" type="text" size="40" [formControlName]="i"/>
+        </div>
       </div>
-      <h3>Instructions</h3>
 
-      <textarea name="" id="" cols="50" rows="10"></textarea>
+    <div>
+      <h3>Instruction:</h3>
+      <textarea
+      formControlName="instruction"
+      cols="50"
+      rows="10"
+      >
 
+      </textarea>
+
+    </div>
       <h3>Image</h3>
       <input type="text">
 </form>
 
 
 <hr>
-<button>Add Recipe</button>
+<button
+    type="button"
+    (click)="submit()"
+    [disabled]="!form.valid">Add Recipe</button>
 
 <button [routerLink]="['/']">Back to Home Page</button>

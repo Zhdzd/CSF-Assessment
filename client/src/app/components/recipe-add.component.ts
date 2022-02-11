@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Recipe } from '../models';
+import { RecipeService } from '../services/recipe.service';
 
 @Component({
   selector: 'app-recipe-add',
@@ -10,9 +11,8 @@ import { Recipe } from '../models';
 export class RecipeAddComponent implements OnInit {
 
   form!: FormGroup
-  //ingredients!: FormArray
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private recipeSvc: RecipeService) { }
 
   ngOnInit(): void {
       this.form = this.createForm();
@@ -21,11 +21,14 @@ export class RecipeAddComponent implements OnInit {
   createForm(): FormGroup{
     return this.fb.group({
       title: this.fb.control('', [Validators.required, Validators.minLength(3)]),
-      image: this.fb.control('', [Validators.required]),
+      image: this.fb.control('', ),
       instruction: this.fb.control('', [Validators.required, Validators.minLength(3)]),
-      ingredients: this.fb.array([new FormControl('')])
+      ingredients: this.fb.array([
+          new FormControl('',[Validators.required, Validators.minLength(3)]),
+        ])
     });
   }
+
   addIngredient(){
       const control = new FormControl('', Validators.required);
       (<FormArray>this.form.get('ingredients')).push(control);
@@ -33,6 +36,33 @@ export class RecipeAddComponent implements OnInit {
 
   returnFormArr(form: FormGroup, key: string): FormArray {
     return form.get(key) as FormArray;
+  }
+
+  removeIngControl(i: number){
+    (<FormArray>this.form.get('ingredients')).removeAt(i);
+  }
+  createId(length: number): string {
+    let randomId= "";
+    let characters = 'abcdefghijk12345678';
+
+    for(let i = 0; i< length; i++){
+      randomId = randomId + characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      )
+    }
+    return randomId;
+
+  }
+  submit(){
+    let recipe: Recipe ={
+      id:  ''+this.createId(4),
+      title: this.form.value.title,
+      ingredients: this.form.value.ingredients,
+      instruction: this.form.value.instruction,
+      image: this.form.value.image
+    }
+    console.log(recipe)
+
   }
 
 

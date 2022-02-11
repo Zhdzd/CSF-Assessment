@@ -1,6 +1,6 @@
 export interface  RecipeSummary {
 
-  id: number;
+  id: string; 
   title: string;
 }
 
